@@ -1,0 +1,29 @@
+@import '_variables.scss';
+
+/* You can add global styles to this file, and also import other style files */
+
+.amcart-body {
+  padding-bottom: 70px;
+}
+
+.has-error {
+  .custom-select {
+    border: 1px solid $error-color;
+    &:focus {
+      border-color: $error-color;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+
+  .form-control {
+    border: 1px solid $error-color;
+    &:focus {
+      border-color: $error-color;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+
+  .invalid-feedback {
+    display: block !important;
+  }
+}

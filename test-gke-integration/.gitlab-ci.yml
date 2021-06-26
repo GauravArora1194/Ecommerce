@@ -1,0 +1,24 @@
+variables:
+  IMAGE_NAME: gitlab-gke
+  CLUSTER_ZONE: us-central1-a
+  GCP_PROJECT_ID: banded-chimera-304813
+  CLUSTER_NAME: ecom-deploy
+  K8S_DEPLOYMENT: nginx
+  K8S_IMAGE: nginx
+services:
+  - docker:dind
+
+stages:
+  - deploy
+
+deploy-image:
+  stage: deploy
+  image: dwdraju/gke-kubectl-docker
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE --project $GCP_PROJECT_ID
+    - kubectl set image deployment/$K8S_DEPLOYMENT $K8S_IMAGE=sharmasahil95/gcp-frontend:latest
+  only:
+    - master

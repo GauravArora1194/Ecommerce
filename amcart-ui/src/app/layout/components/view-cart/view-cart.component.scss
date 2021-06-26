@@ -1,0 +1,19 @@
+.cart-table {
+  margin: 20px;
+  .product-price {
+    padding-top: 14px;
+  }
+  .dustbin-logo {
+    cursor: pointer;
+    font-size: 24px;
+    margin-top: 4px;
+    margin-left: 16px;
+  }
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 150px;
+}

@@ -1,0 +1,14 @@
+# This file is a template, and might need editing before it works on your project.
+image : openjdk:11-jdk
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+stages:
+  - deploy-artifact
+deploy:
+  image: maven:3.6-jdk-11
+  stage: deploy-artifact
+  script:
+    - 'mvn deploy -s ci_settings.xml'
+  only:
+    - master

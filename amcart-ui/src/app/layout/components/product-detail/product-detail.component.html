@@ -1,0 +1,25 @@
+<div class="product-detail">
+  <div class="card" *ngIf="product">
+    <div class="card-body">
+      <h5 class="card-title">{{ product.name }}</h5>
+      <p class="card-text">{{ product.description }}</p>
+      <p class="card-text brand">{{ product.brand }}</p>
+      <p class="card-text" *ngIf="product.color">
+        Color Options:{{ product.color }}
+      </p>
+      <p class="card-text">Price: {{ product.price | currency: "INR" }}</p>
+      <p class="card-text" *ngIf="product?.discount > 0">
+        Discount: {{ product?.discount }} %
+      </p>
+      <p class="card-text stock-label">{{ isProductInStock(product.stock) }}</p>
+      <button
+        class="btn btn-primary"
+        (click)="addProductToCart(product.code, product.name)"
+        style="margin-top: 200px"
+      >
+        Add to cart
+      </button>
+    </div>
+    <img class="product-image" [src]="product.imageUrl" alt="Card image cap" />
+  </div>
+</div>

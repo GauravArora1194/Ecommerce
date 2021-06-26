@@ -1,0 +1,14 @@
+.cart-header {
+  .logo {
+    border-color: yellow;
+    border-style: solid;
+    margin-right: 4px;
+  }
+  .username {
+    display: flex;
+    align-items: center;
+    margin-right: 6px;
+    color: white;
+    text-transform: capitalize;
+  }
+}

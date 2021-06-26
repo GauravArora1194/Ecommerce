@@ -1,0 +1,41 @@
+image : openjdk:8-jdk-alpine
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  DEPLOYMENT: order
+  IMAGE: order
+stages:
+  - build
+  - docker-build-push
+  - deploy
+maven-build:
+  image : maven:3.6.3-jdk-8
+  stage : build
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+      - target/*.jar
+docker-build-master:
+  # Official docker image.
+  image: docker:latest
+  stage: docker-build-push
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$DOCKER_HUB_USER" -p $DOCKER_ACCESS_TOKEN
+  script:
+    - docker build -t sharmasahil95/amcart-order-service:latest .
+    - docker push sharmasahil95/amcart-order-service:latest
+  only:
+    - master
+deploy-image:
+  stage: deploy
+  image: dwdraju/gke-kubectl-docker
+  script:
+    - echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE --project $GCP_PROJECT_ID
+    - kubectl set image deployment/$DEPLOYMENT $IMAGE=sharmasahil95/amcart-order-service:latest
+  only:
+    - master

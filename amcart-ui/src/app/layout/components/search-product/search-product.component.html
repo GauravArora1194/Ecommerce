@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="input-group col-6 offset-3 my-3">
+    <input type="text" class="form-control" placeholder="Search Products" aria-describedby="button-addon2"
+      [(ngModel)]="searchText">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchProducts()"><i
+          class="pi pi-search"></i><span style="margin-left: 4px;">Search</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="card-group">
+  <div *ngFor="let product of products">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text brand">{{ product.brand }}</p>
+        <button class="btn btn-secondary btn-view-product" (click)="viewProduct(product.code)">View Product</button>
+        <button class="btn btn-primary" (click)="addProductToCart(product.code, product.name)">Add to cart</button>
+      </div>
+      <img style="margin-right: 8px;" class="product-image" [src]="product.imageUrl" alt="Card image cap" />
+    </div>
+  </div>
+</div>

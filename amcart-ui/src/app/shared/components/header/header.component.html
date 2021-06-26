@@ -1,0 +1,38 @@
+<div class="cart-header sticky-top">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <img class="logo" src="/assets/images/shopping-online.jpg" width="40" height="40" alt="" loading="lazy">
+    <a class="navbar-brand app-name" href="#">AmCart
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class=" nav-item">
+          <a class="nav-link" [routerLink]="['/home']"><i class="pi pi-home"></i><span style="margin-left: 4px;">Home
+            </span></a>
+        </li>
+        <li *ngIf="username" class=" nav-item">
+          <a class="nav-link" [routerLink]="['/home/viewCart']"><i class="pi pi-shopping-cart"></i><span
+              style="margin-left: 4px;">Cart </span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+
+        <li *ngIf="username" class="nav-item active username">
+          <i class="pi pi-user"></i><span style="margin-left: 4px;">Hello, {{username}}</span>
+        </li>
+        <div *ngIf="email else elseBlock">
+          <button class="btn btn-danger" (click)="onLogoutClick()"><span style="margin-right: 4px;">Logout</span><i
+              class="pi pi-arrow-circle-right"></i></button>
+        </div>
+        <ng-template #elseBlock>
+          <button class="btn btn-primary" (click)="onLoginClick()"><span style="margin-right: 4px;">Login</span><i
+              class="pi pi-arrow-circle-right"></i></button>
+        </ng-template>
+      </ul>
+    </div>
+  </nav>
+</div>

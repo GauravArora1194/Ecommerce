@@ -1,0 +1,15 @@
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  .main-center {
+    height: 500px;
+    width: 300px;
+    background-image: url('../../../../assets/images/login-back.jpg');
+    button {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "/cart/*":
+    {
+    "target":"http://35.223.97.142:8080/cart",
+    "secure":false,
+    "logLevel":"debug"
+   
+    }
+}

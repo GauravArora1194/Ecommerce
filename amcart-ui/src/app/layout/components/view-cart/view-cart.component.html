@@ -1,0 +1,48 @@
+<div class="container" *ngIf="cart&&cart?.entries.length > 0; else showEmptyCart">
+  <table class="table cart-table">
+    <thead>
+      <tr>
+        <th scope="col">S. NO</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price Per Item</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="cart?.entries">
+        <tr *ngFor="let product of cart?.entries; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ product.name}}</td>
+          <td>
+            <div>
+              <button [disabled]="product.quantity === 1" class="btn btn-primary" (click)="decreaseProduct(product.code, product.quantity)">-</button>              {{product.quantity}}
+              <button class="btn btn-primary" (click)="increaseProduct(product.code)">+</button>
+            </div>
+          </td>
+          <td class="product-price">{{product.basePrice}}</td>
+          <td><i class="pi pi-trash dustbin-logo" (click)="deleteProduct(product.code, product.quantity)"></i></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <table class="table cart-table">
+    <thead>
+      <tr>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">{{cart.totalPrice | currency:"INR"}}</th>
+      </tr>
+    </thead>
+  </table>
+  <div class="container">
+    <button class="btn btn-dark" (click)="proceedToCheckout()"><span style="margin-right: 10px;">Proceed To Checkout</span><i class="pi pi-arrow-right"></i></button>
+  </div>
+</div>
+<ng-template #showEmptyCart>
+  <div class="empty-cart">
+    <img src="/assets/images/empty-cart-icon.png" alt="empty cart icon">
+  </div>
+</ng-template>
